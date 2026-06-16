@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "auth:generate": "pnpm dlx auth@latest generate --output src/_database/schema.ts -y",
-    "db:push": "drizzle-kit push"
+    "auth:generate": "pnpm exec auth@latest generate --output src/_database/auth-schema.ts -y", 
+    "db:generate": "pnpm exec drizzle-kit generate",
+    "db:migrate": "pnpm exec drizzle-kit migrate"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",
