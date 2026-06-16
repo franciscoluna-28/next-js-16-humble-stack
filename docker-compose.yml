@@ -1,4 +1,16 @@
 services:
+  next_humble_stack_drizzle_gateway:
+    image: ghcr.io/drizzle-team/gateway:latest
+    container_name: next_humble_stack_drizzle_gateway
+    restart: always
+    ports:
+      - "4983:4983"
+    environment:
+      PORT: "4983"
+      STORE_PATH: "/app/data"
+    volumes:
+      - next_humble_stack_drizzle_gateway:/app/data
+
   postgres:
     image: postgres:17-alpine
     ports:
@@ -17,3 +29,4 @@ services:
 
 volumes:
   pgdata:
+  next_humble_stack_drizzle_gateway:

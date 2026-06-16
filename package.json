@@ -3,15 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "docker compose up -d && pnpm db:migrate && next dev",
-    "dev:db": "docker compose up -d",
+    "dev": "pnpm infra:up && pnpm db:generate && pnpm db:migrate && pnpm dev:app",
+    "infra:up": "docker compose up -d --wait",
+    "db:migrate": "pnpm exec drizzle-kit migrate",
+    "dev:app": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "auth:generate": "echo 'WARNING: Do not modify the generated auth-schema.ts. Use extensions instead.' && pnpm exec auth@latest generate --output src/_database/auth-schema.ts -y",
     "db:generate": "pnpm exec drizzle-kit generate",
-    "db:migrate": "pnpm exec drizzle-kit migrate",
-    "db:push": "pnpm db:generate && pnpm db:migrate"
+    "db:push:dev": "pnpm db:generate && pnpm db:migrate"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",
@@ -47,6 +48,7 @@
     "@types/pg": "^8.20.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^10.0.3",
     "drizzle-kit": "^0.31.10",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
