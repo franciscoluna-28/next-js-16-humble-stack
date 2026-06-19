@@ -1,13 +1,10 @@
 import { Pool } from "pg";
 import { drizzle } from "drizzle-orm/node-postgres";
-import { account, session, user, verification } from "./schema/auth-schema";
+import * as authSchema from "./schema/auth-schema";
 import { todo } from "./schema/app-schema";
 
 const schema = {
-  user,
-  session,
-  account,
-  verification,
+  ...authSchema,
   todo,
 };
 

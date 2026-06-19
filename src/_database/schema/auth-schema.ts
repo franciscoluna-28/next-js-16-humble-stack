@@ -7,6 +7,7 @@ import {
   index,
   pgEnum,
 } from "drizzle-orm/pg-core";
+import { todo } from "./app-schema";
 
 export const userRoles = ["user", "admin"] as const;
 
@@ -88,6 +89,7 @@ export const verification = pgTable(
 export const userRelations = relations(user, ({ many }) => ({
   sessions: many(session),
   accounts: many(account),
+  todos: many(todo),
 }));
 
 export const sessionRelations = relations(session, ({ one }) => ({
