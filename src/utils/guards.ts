@@ -1,13 +1,22 @@
-import { SessionDTO } from "@/_features/auth/server/application/auth.types";
-import { authService } from "@/_features/auth/server/infrastructure/auth.service";
-import { redirect } from "next/navigation";
+import { getSession } from "@/_features/auth/server/actions"
+import { redirect } from "next/navigation"
 
-export const ssrAuthGuard = async (): Promise<SessionDTO> => {
-  const session = await authService.getSession();
+export const requireAuth = async () => {
+  const session = await getSession()
 
   if (!session) {
-    redirect("/sign-in");
+    redirect("/sign-in")
   }
 
-  return session;
-};
+  return session
+}
+
+export const requireAdmin = async () => {
+  const session = await requireAuth()
+
+  if (session.user.role !== "admin") {
+    redirect("/app/dashboard")
+  }
+
+  return session
+}
